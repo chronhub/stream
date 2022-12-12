@@ -10,6 +10,7 @@ use Chronhub\Contracts\Stream\Stream;
 use Chronhub\Contracts\Stream\StreamName;
 use Chronhub\Contracts\Message\DomainEvent;
 use function count;
+use function is_string;
 
 final class GenericStream implements Stream
 {
@@ -36,5 +37,16 @@ final class GenericStream implements Stream
 
         return $this->events instanceof Generator
             ? (int) $this->events->getReturn() : count($this->events);
+    }
+
+    public function newInstance(StreamName|string|null $streamName = null, ?iterable $events = null): Stream
+    {
+        $nameOfStream = null;
+
+        if (is_string($streamName)) {
+            $nameOfStream = new GenericStreamName($streamName);
+        }
+
+        return new self($nameOfStream instanceof StreamName ? $nameOfStream : $this->streamName, $events ?? $this->events);
     }
 }

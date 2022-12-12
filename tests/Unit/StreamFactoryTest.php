@@ -23,7 +23,7 @@ final class StreamFactoryTest extends UnitTestCase
     {
         $factory = new StreamFactory();
 
-        $stream = $factory->from($streamName, [SomeEvent::fromContent(['foo' => 'bar'])]);
+        $stream = $factory($streamName, [SomeEvent::fromContent(['foo' => 'bar'])]);
 
         $this->assertInstanceOf(GenericStream::class, $stream);
         $this->assertInstanceOf(GenericStreamName::class, $stream->name());

@@ -11,6 +11,7 @@ use Chronhub\Stream\GenericStreamName;
 use Illuminate\Support\LazyCollection;
 use Chronhub\Stream\Tests\UnitTestCase;
 use Chronhub\Stream\Tests\Double\SomeEvent;
+use Chronhub\Stream\Tests\Double\AnotherEvent;
 
 final class GenericStreamTest extends UnitTestCase
 {
@@ -41,6 +42,74 @@ final class GenericStreamTest extends UnitTestCase
 
         $this->assertSame($streamName, $stream->name());
         $this->assertInstanceOf(SomeEvent::class, $stream->events()->current());
+    }
+
+    /**
+     * @test
+     */
+    public function it_create_new_instance(): void
+    {
+        $streamName = new GenericStreamName('some_stream_name');
+
+        $stream = new GenericStream($streamName, [SomeEvent::fromContent([])]);
+
+        $newStream = $stream->newInstance('another_stream_name', [AnotherEvent::fromContent([])]);
+
+        $this->assertNotSame($stream, $newStream);
+
+        $this->assertEquals('another_stream_name', $newStream->name()->name());
+        $this->assertInstanceOf(AnotherEvent::class, $newStream->events()->current());
+    }
+
+    /**
+     * @test
+     */
+    public function it_create_new_instance_from_itself(): void
+    {
+        $streamName = new GenericStreamName('some_stream_name');
+
+        $stream = new GenericStream($streamName, [SomeEvent::fromContent([])]);
+
+        $newStream = $stream->newInstance();
+
+        $this->assertNotSame($stream, $newStream);
+
+        $this->assertEquals('some_stream_name', $newStream->name()->name());
+        $this->assertInstanceOf(SomeEvent::class, $newStream->events()->current());
+    }
+
+    /**
+     * @test
+     */
+    public function it_create_new_instance_from_stream_name_instance(): void
+    {
+        $streamName = new GenericStreamName('some_stream_name');
+
+        $stream = new GenericStream($streamName, [SomeEvent::fromContent([])]);
+
+        $newStream = $stream->newInstance(null, [AnotherEvent::fromContent([])]);
+
+        $this->assertNotSame($stream, $newStream);
+
+        $this->assertEquals('some_stream_name', $newStream->name()->name());
+        $this->assertInstanceOf(AnotherEvent::class, $newStream->events()->current());
+    }
+
+    /**
+     * @test
+     */
+    public function it_create_new_instance_from_stream_events_instance(): void
+    {
+        $streamName = new GenericStreamName('some_stream_name');
+
+        $stream = new GenericStream($streamName, [SomeEvent::fromContent([])]);
+
+        $newStream = $stream->newInstance(null, [AnotherEvent::fromContent([])]);
+
+        $this->assertNotSame($stream, $newStream);
+
+        $this->assertEquals('some_stream_name', $newStream->name()->name());
+        $this->assertInstanceOf(AnotherEvent::class, $newStream->events()->current());
     }
 
     public function provideIterableEvents(): Generator

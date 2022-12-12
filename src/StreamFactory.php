@@ -10,7 +10,7 @@ use Chronhub\Contracts\Stream\StreamName;
 
 final class StreamFactory implements Factory
 {
-    public function from(StreamName|string $streamName, iterable $streamEvents = []): Stream
+    public function __invoke(StreamName|string $streamName, iterable $streamEvents = []): Stream
     {
         $nameOfStream = $streamName instanceof StreamName ? $streamName->name() : $streamName;
 
