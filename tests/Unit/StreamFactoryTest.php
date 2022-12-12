@@ -23,17 +23,16 @@ final class StreamFactoryTest extends UnitTestCase
     {
         $factory = new StreamFactory();
 
-        $stream = $factory($streamName, [SomeEvent::fromContent([])]);
+        $stream = $factory($streamName);
 
         $this->assertInstanceOf(GenericStream::class, $stream);
         $this->assertInstanceOf(GenericStreamName::class, $stream->name());
         $this->assertNotSame($streamName, $stream->name());
         $this->assertEquals('some_stream_name', $stream->name()->name());
 
-        $streamEvent = iterator_to_array($stream->events())[0];
+        $streamEvent = iterator_to_array($stream->events());
 
-        $this->assertEmpty($streamEvent->headers());
-        $this->assertEmpty($streamEvent->toContent());
+        $this->assertEmpty($streamEvent);
     }
 
     /**
