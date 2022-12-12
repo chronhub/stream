@@ -43,8 +43,8 @@ final class GenericStream implements Stream
     {
         $nameOfStream = null;
 
-        if (is_string($streamName)) {
-            $nameOfStream = new GenericStreamName($streamName);
+        if ($streamName !== null) {
+            $nameOfStream = is_string($streamName) ? new GenericStreamName($streamName) : $streamName;
         }
 
         return new self($nameOfStream instanceof StreamName ? $nameOfStream : $this->streamName, $events ?? $this->events);

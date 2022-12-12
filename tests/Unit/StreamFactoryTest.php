@@ -23,13 +23,42 @@ final class StreamFactoryTest extends UnitTestCase
     {
         $factory = new StreamFactory();
 
-        $stream = $factory($streamName, [SomeEvent::fromContent(['foo' => 'bar'])]);
+        $stream = $factory($streamName, [SomeEvent::fromContent([])]);
 
         $this->assertInstanceOf(GenericStream::class, $stream);
         $this->assertInstanceOf(GenericStreamName::class, $stream->name());
         $this->assertNotSame($streamName, $stream->name());
         $this->assertEquals('some_stream_name', $stream->name()->name());
-        $this->assertEquals([SomeEvent::fromContent(['foo' => 'bar'])], iterator_to_array($stream->events()));
+
+        $streamEvent = iterator_to_array($stream->events())[0];
+
+        $this->assertEmpty($streamEvent->headers());
+        $this->assertEmpty($streamEvent->toContent());
+    }
+
+    /**
+     * @test
+     * @dataProvider provideStreamName
+     */
+    public function it_make_stream_with_stream_events(StreamName|string $streamName): void
+    {
+        $factory = new StreamFactory();
+
+        $expectedStreamEvent = SomeEvent::fromContent(['foo' => 'bar'])->withHeader('some', 'header');
+
+        $stream = $factory($streamName, [$expectedStreamEvent]);
+
+        $this->assertInstanceOf(GenericStream::class, $stream);
+        $this->assertInstanceOf(GenericStreamName::class, $stream->name());
+        $this->assertNotSame($streamName, $stream->name());
+        $this->assertEquals('some_stream_name', $stream->name()->name());
+
+        $streamEvent = iterator_to_array($stream->events())[0];
+
+        $this->assertEquals(['some' => 'header'], $streamEvent->headers());
+        $this->assertEquals(['foo' => 'bar'], $streamEvent->toContent());
+
+        $this->assertEquals($expectedStreamEvent, $streamEvent);
     }
 
     public function provideStreamName(): Generator
