@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Chronhub\Stream\Tests\Unit;
 
 use Generator;
-use Chronhub\Stream\Tests\UnitTestCase;
+use Chronhub\Testing\UnitTest;
 use Chronhub\Stream\DetermineStreamCategory;
 
-final class DetermineStreamCategoryTest extends UnitTestCase
+final class DetermineStreamCategoryTest extends UnitTest
 {
     /**
      * @test

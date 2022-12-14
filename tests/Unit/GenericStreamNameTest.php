@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Chronhub\Stream\Tests\Unit;
 
 use InvalidArgumentException;
+use Chronhub\Testing\UnitTest;
 use Chronhub\Stream\GenericStreamName;
-use Chronhub\Stream\Tests\UnitTestCase;
 
-final class GenericStreamNameTest extends UnitTestCase
+final class GenericStreamNameTest extends UnitTest
 {
     /**
      * @test

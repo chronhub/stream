@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace Chronhub\Stream\Tests\Unit;
 
 use Generator;
+use Chronhub\Testing\UnitTest;
 use Chronhub\Stream\GenericStream;
 use Chronhub\Stream\StreamFactory;
 use Chronhub\Stream\GenericStreamName;
-use Chronhub\Stream\Tests\UnitTestCase;
+use Chronhub\Testing\Double\SomeEvent;
 use Chronhub\Contracts\Stream\StreamName;
-use Chronhub\Stream\Tests\Double\SomeEvent;
 use function iterator_to_array;
 
-final class StreamFactoryTest extends UnitTestCase
+final class StreamFactoryTest extends UnitTest
 {
     /**
      * @test

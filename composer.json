@@ -16,9 +16,11 @@
     "chronhub/contracts": "dev-main"
   },
   "require-dev": {
-    "chronhub/message": "dev-main",
+    "illuminate/contracts": "9.x",
+    "chronhub/testing": "dev-main",
     "laravel/pint": "^0.2",
     "nunomaduro/larastan": "^2.1",
+    "jangregor/phpstan-prophecy": "dev-master",
     "phpspec/prophecy-phpunit": "dev-master",
     "phpunit/phpunit": "^9.5",
     "roave/security-advisories": "dev-latest"

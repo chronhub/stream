@@ -6,15 +6,15 @@ namespace Chronhub\Stream\Tests\Unit;
 
 use Generator;
 use Chronhub\Stream\GenericStream;
+use Chronhub\Testing\ProphecyTest;
 use Chronhub\Stream\GenericStreamName;
+use Chronhub\Testing\Double\SomeEvent;
 use Chronhub\Contracts\Aggregate\Identity;
 use Chronhub\Stream\OneStreamPerAggregate;
 use Chronhub\Contracts\Message\DomainEvent;
 use Chronhub\Contracts\Message\EventHeader;
-use Chronhub\Stream\Tests\Double\SomeEvent;
-use Chronhub\Stream\Tests\ProphecyTestCase;
 
-final class OneStreamPerAggregateTest extends ProphecyTestCase
+final class OneStreamPerAggregateTest extends ProphecyTest
 {
     private string $aggregateId = 'b962d9cd-8e0a-4494-8f93-8b964ceda06b';
 

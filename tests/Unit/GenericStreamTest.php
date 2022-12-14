@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace Chronhub\Stream\Tests\Unit;
 
 use Generator;
+use Chronhub\Testing\UnitTest;
 use Chronhub\Stream\GenericStream;
 use Illuminate\Support\Collection;
 use Chronhub\Stream\GenericStreamName;
+use Chronhub\Testing\Double\SomeEvent;
 use Illuminate\Support\LazyCollection;
-use Chronhub\Stream\Tests\UnitTestCase;
-use Chronhub\Stream\Tests\Double\SomeEvent;
-use Chronhub\Stream\Tests\Double\AnotherEvent;
+use Chronhub\Testing\Double\AnotherEvent;
 
-final class GenericStreamTest extends UnitTestCase
+final class GenericStreamTest extends UnitTest
 {
     /**
      * @test
