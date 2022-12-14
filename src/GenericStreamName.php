@@ -9,15 +9,11 @@ use Chronhub\Contracts\Stream\StreamName;
 
 final class GenericStreamName implements StreamName
 {
-    public readonly string $name;
-
-    public function __construct(string $name)
+    public function __construct(public readonly string $name)
     {
-        if ($name === '') {
+        if ($this->name === '') {
             throw new InvalidArgumentException('Stream name given can not be empty');
         }
-
-        $this->name = $name;
     }
 
     public function name(): string
